@@ -48,14 +48,23 @@ for line in lines:
 			break
 		minus += 1
 
-	if one_one[x] <= two_one[x] and one_two[x] >= two_two[x]: 
+	# Part one
+	# if one_one[x] <= two_one[x] and one_two[x] >= two_two[x]: 
+	# 	contained += 1
+	# elif two_one[x] <= one_one[x] and two_two[x] >= one_two[x]: 
+	# 	contained += 1
+	if one_one[x] <= two_one[x] and one_two[x] >= two_one[x]: 
 		contained += 1
-	elif two_one[x] <= one_one[x] and two_two[x] >= one_two[x]: 
+	elif two_one[x] <= one_one[x] and two_two[x] >= one_one[x]: 
 		contained += 1
 	else:
-		continue
+		print(str(one_one[x]) + "-" + str(one_two[x]) + "," + str(two_one[x]) + "-" + str(two_two[x]))
 
 	x += 1
 
 print("Contained pairs ---> " + str(contained))
 
+# print(one_one)
+# print(one_two)
+# print(two_one)
+# print(two_two)
