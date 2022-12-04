@@ -3,8 +3,6 @@ file = open("data.h", "r")
 lines = file.readlines() 
 file.close()
 
-
-
 i = 0
 for line in lines:
 

@@ -1,5 +1,3 @@
-import codecs
-
 file = open("data.h", "r")
 
 lines = file.readlines() 
