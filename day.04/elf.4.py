@@ -53,7 +53,7 @@ for line in lines:
 	elif two_one[x] <= one_one[x] and two_two[x] >= one_two[x]: 
 		contained += 1
 	else:
-		print(str(one_one[x]) + "-" + str(one_two[x]) + "," + str(two_one[x]) + "-" + str(two_two[x]))
+		continue
 
 	x += 1
 
