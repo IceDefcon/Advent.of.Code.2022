@@ -16,6 +16,8 @@ two_one = [0 for i in range(line_count)]
 two_two = [0 for i in range(line_count)]
 
 x = 0
+contained = 0
+
 for line in lines:
 
 	coma = 0
@@ -27,29 +29,33 @@ for line in lines:
 		coma += 1
 
 	minus = 0
-
 	length_one = len(string_one)
-	length_two = len(string_two)
 
 	for c in string_one:
 		if string_one[minus:minus + 1] == '-':
-			one_one[x] = string_one[0:minus]
-			one_two[x] = string_one[minus + 1:length_one]
+			one_one[x] = int(string_one[0:minus])
+			one_two[x] = int(string_one[minus + 1:length_one])
 			break
 		minus += 1
 
+	minus = 0
+	length_two = len(string_two)
 
 	for c in string_two:
 		if string_two[minus:minus + 1] == '-':
-			two_one[x] = string_two[0:minus]
-			two_two[x] = string_two[minus + 1:length_two]
+			two_one[x] = int(string_two[0:minus])
+			two_two[x] = int(string_two[minus + 1:length_two])
 			break
 		minus += 1
 
+	if one_one[x] <= two_one[x] and one_two[x] >= two_two[x]: 
+		contained += 1
+	elif two_one[x] <= one_one[x] and two_two[x] >= one_two[x]: 
+		contained += 1
+	else:
+		print(str(one_one[x]) + "-" + str(one_two[x]) + "," + str(two_one[x]) + "-" + str(two_two[x]))
+
 	x += 1
 
+print("Contained pairs ---> " + str(contained))
 
-print(one_one)
-print(one_two)
-print(two_one)
-print(two_two)
