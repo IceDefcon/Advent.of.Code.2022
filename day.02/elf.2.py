@@ -1,12 +1,17 @@
-
-
-
-file = open("elf.h", "r")
+file = open("data.h", "r")
 
 lines = file.readlines() 
 file.close()
 
-def switch(arg): 
+def xyz_switch(arg): 
+    switch = { 
+        "X": 1, 
+        "Y": 2,
+        "Z": 3,
+    } 
+    return switch.get(arg) 
+
+def abc_switch(arg): 
     switch = { 
         "A": 1, 
         "B": 2,
@@ -14,7 +19,7 @@ def switch(arg):
     } 
     return switch.get(arg) 
 
-def loose(arg): 
+def loose_switch(arg): 
     loose = { 
         "A": "Z", 
         "B": "X",
@@ -22,15 +27,15 @@ def loose(arg):
     } 
     return loose.get(arg) 
 
-def draw(arg): 
+def draw_switch(arg): 
     draw = { 
         "A": "X", 
         "B": "Y",
-        "C": "Z",
+   		     "C": "Z",
     } 
     return draw.get(arg) 
 
-def win(arg): 
+def win_switch(arg): 
     win = { 
         "A": "Y", 
         "B": "Z",
@@ -45,41 +50,31 @@ for line in lines:
 	oponent = line[0:1]
 	me  	= line[2:3]
 
-	abc 	= switch(oponent)
-	xyz 	= switch(me)
-	print("choice ---> " + str(xyz))
+	abc 		= abc_switch(oponent)
+	xyz 		= xyz_switch(me)
+
 	if xyz == 1:
-		me = loose(oponent)
-		xyz 	= switch(me)
-		print(xyz)
+		me 		= loose_switch(oponent)
+		xyz 	= xyz_switch(me)
 	elif xyz == 2:
-		me = draw(oponent)
-		xyz 	= switch(me)
-		print(xyz)
+		me 		= draw_switch(oponent)
+		xyz 	= xyz_switch(me)
 	else:
-		me = win(oponent)
-		xyz 	= switch(me)
-		print(xyz)
+		me 		= win_switch(oponent)
+		xyz 	= xyz_switch(me)
 
 	result  = abc^xyz
 
-	print(str(abc) + " xor " + str(xyz))
-
 	if result == 0: 
 		points = points + 3 + xyz
-		print("Draw  ---> Plus " + str(3 + xyz))
 	elif abc != 3:
 		if (xyz - 1) == abc:
 			points = points + 6 + xyz
-			print("Win   ---> Plus " + str(6 + xyz))
 		else:
 			points = points + 0 + xyz
-			print("Loose ---> Plus " + str(0 + xyz))
 	elif (abc - 2) == xyz:
 		points = points + 6 + xyz
-		print("Win   ---> Plus " + str(6 + xyz))
 	else:
 		points = points + 0 + xyz
-		print("Loose ---> Plus " + str(0 + xyz))
 
 print("Total points ---> " + str(points))
