@@ -1,21 +1,29 @@
 
 #include <bits/stdc++.h>
 
-#define MAX 1000
+using namespace std;
+
+#define MAX 128
 
 class Stack {
-    int top;
+    int top[9];
  
 public:
-    int a[MAX]; // Maximum size of Stack
-    int b[MAX]; // Maximum size of Stack
-    int c[MAX]; // Maximum size of Stack
+    const char * a[MAX];
+    const char * b[MAX];
+    const char * c[MAX];
+    const char * d[MAX];
+    const char * e[MAX];
+    const char * f[MAX];
+    const char * g[MAX];
+    const char * h[MAX];
+    const char * i[MAX];
  
  	Stack();
 	~Stack();
 
-    bool push(int x);
-    int pop();
-    int peek();
-    bool isEmpty();
+    bool push(const char * x,int y);
+    const char * pop(int y);
+    const char * peek(int y);
+    bool isEmpty(int y);
 };

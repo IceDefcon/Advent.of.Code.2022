@@ -1,66 +1,33 @@
 
 
 #include <iostream>
-#include <sstream>
-#include <string>
-#include <fstream> 
-#include <vector>
-
 #include "stack.h"
 
-using namespace std;
-
-string number_str = "";
-int number_int;
-
-#define MAX 1000
-
-
-
-
+const char * init_stack_a[2] = {"Z","N"};
+const char * init_stack_b[3] = {"M","C","D"};
+const char * init_stack_c[1] = {"P"};
 
 int main(int argc, char const *argv[])
 {
 
-	ifstream file("data.h", ios::binary | ios::ate);
-	streamsize size = file.tellg();
-	file.seekg(0, ios::beg);
-
-	vector<char> buffer(size);
-	if (file.read(buffer.data(), size))
-	{
-		for (int i = 0; i < size; ++i)
-		{
-			cout << buffer[i];
-			number_str += buffer[i];
-			// if(buffer[i] == 10) break;
-		}
-
-		cout << endl << "New test" << endl;
-
-		std::stringstream   data(number_str);
-		data >> number_int;
-		cout << number_int << endl;
-	}
+	cout << endl << "---==[ Process data ]==--- " << endl << endl; 
 
     class Stack s;
-    s.push(10);
-    s.push(20);
-    s.push(30);
-    cout << s.pop() << " Popped from stack\n";
-   
-    //print top element of stack after popping
-    cout << "Top element is : " << s.peek() << endl;
-   
-    //print all elements in stack :
-    cout <<"Elements present in stack : ";
-    while(!s.isEmpty())
+
+    for(int i = 0; i < sizeof(init_stack_a)/8 ; i++) s.push(init_stack_a[i],0);
+    for(int i = 0; i < sizeof(init_stack_b)/8 ; i++) s.push(init_stack_b[i],1);
+    for(int i = 0; i < sizeof(init_stack_c)/8 ; i++) s.push(init_stack_c[i],2);
+
+    for(int i = 0; i < 3; i++)
     {
-        // print top element in stack
-        cout << s.peek() <<" ";
-        // remove top element in stack
-        s.pop();
+	    cout << endl;
+	    cout <<"Elements present in stack : ";
+	    while(!s.isEmpty(i))
+	    {
+	        cout << s.peek(i) <<" ";
+	        s.pop(i);
+	    }
     }
- 
+
 	return 0;
 }
