@@ -6,5 +6,5 @@
 
 
 all:
-	g++ elf.5.cpp -o elf
+	g++ src/main.cpp -I include
 	
