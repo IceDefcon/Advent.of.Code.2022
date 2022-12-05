@@ -4,7 +4,9 @@
 #include "stack.h"
 
 
-
+//
+// Can be simplified
+//
 Stack::Stack()
 {
 	top[0] = -1;
@@ -23,7 +25,9 @@ Stack::~Stack()
 
 }
 
-
+//
+// Can be simplified
+//
 bool Stack::push(const char * x,int y)
 {
     if (top[y] >= (MAX - 1)) {
@@ -44,7 +48,10 @@ bool Stack::push(const char * x,int y)
         return true;
     }
 }
- 
+
+//
+// Can be simplified
+//
 const char * Stack::pop(int y)
 {
     if (top[y] < 0) {
@@ -66,6 +73,9 @@ const char * Stack::pop(int y)
     }
 }
 
+//
+// Can be simplified
+//
 const char * Stack::peek(int y)
 {
     if (top[y] < 0) {

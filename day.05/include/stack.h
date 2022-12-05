@@ -5,6 +5,9 @@ using namespace std;
 
 #define MAX 128
 
+//
+// Can be simplified
+//
 class Stack {
     int top[9];
  
