@@ -24,10 +24,13 @@ int to[502] = {6,5,1,1,5,8,8,2,6,9,1,8,4,5,3,8,7,9,8,3,8,6,8,8,3,7,7,1,7,5,3,5,2
 int main(int argc, char const *argv[])
 {
 
-    cout << endl << "---==[ Process data ]==--- " << endl << endl; 
+    cout << endl << "---==[ Init data ]==--- " << endl << endl; 
 
     class Stack s;
 
+	//
+	// Can be simplified
+	//
     for(int i = 0; i < sizeof(init_stack_a)/8 ; i++) s.push(init_stack_a[i],0);
     for(int i = 0; i < sizeof(init_stack_b)/8 ; i++) s.push(init_stack_b[i],1);
     for(int i = 0; i < sizeof(init_stack_c)/8 ; i++) s.push(init_stack_c[i],2);
@@ -39,6 +42,20 @@ int main(int argc, char const *argv[])
     for(int i = 0; i < sizeof(init_stack_i)/8 ; i++) s.push(init_stack_i[i],8);
 
     cout << endl;
+
+	cout << endl << "---==[ Process data ]==--- " << endl << endl; 
+
+	//
+	// 1st gold star
+	//
+    // for(int x = 0; x < sizeof(amount)/4; x++)
+    // {
+    //     for(int y = 0; y < amount[x]; y++)
+    //     {
+    //         const char * z = s.pop(from[x] - 1);
+    //         s.push(z,to[x] - 1);
+    //     }
+    // }
 
     for(int x = 0; x < sizeof(amount)/4; x++)
     {
@@ -60,12 +77,6 @@ int main(int argc, char const *argv[])
                     s.push(t[i],to[x] - 1);
                 }
             }
-
-			//
-			// 1st gold star
-			//
-            // const char * z = s.pop(from[x] - 1);
-            // s.push(z,to[x] - 1);
         }
     }
 
