@@ -11,7 +11,6 @@ int main(int argc, char const *argv[])
 
     int check = 0;
     for (int i = distinct - 1; i > 0; --i) for (int j = 0; j < i; ++j) check++;
-
     for(int x = 0; x < length; x++)
     {
         char a[distinct];
