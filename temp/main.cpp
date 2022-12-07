@@ -4,10 +4,15 @@
 
 int main(int argc, char const *argv[])
 {
-    vector<char> data = read_file("data");
+    int length = 0;
+    vector<char> data = read_file("data", &length);
 
     // Read first 4 characters
-    cout << data[0] << data[1] << data[2] << data[3] << endl;
+    for(int i = 0; i < length; i++)
+    {
+        cout << data[i];
+    }
 
     return 0;
 }
+
