@@ -10,10 +10,7 @@ vector<char> read_file(string name)
     file.seekg(0, ios::beg);
 
     vector<char> buffer(size);
-    if (file.read(buffer.data(), size))
-    {
-        cout << buffer[0] << buffer[1] << buffer[2] << buffer[3] << endl;
-    }
+    file.read(buffer.data(), size);
 
     return (vector<char>)buffer;
 }
