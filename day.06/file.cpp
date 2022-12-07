@@ -10,7 +10,7 @@ vector<char> read_file(string name, int * back)
 
     *back = size;
 
-    cout << "size ---> " << size << endl;
+    cout << "size of the stream  ---> " << size << endl;
 
     file.seekg(0, ios::beg);
 
