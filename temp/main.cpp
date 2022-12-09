@@ -13,6 +13,17 @@ int main(int argc, char const *argv[])
         cout << data[i];
     }
 
+    string text;
+    ifstream MyReadFile("data");
+
+    bool skip = false;
+
+    cout << endl;
+    while (getline (MyReadFile, text)) 
+    {
+
+        cout << "Line number ---> " << text << endl;
+    }
     return 0;
 }
 
