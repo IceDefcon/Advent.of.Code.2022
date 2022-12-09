@@ -58,28 +58,13 @@ void command(string line, struct parameters * current_parameters)
             current_parameters->folder_size = length;
             current_parameters->folder_name = str;
         }
-
     } 
     else if(cmd == "ls")
     {
-        
+        //
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 int main(int argc, char const *argv[])
 {
@@ -95,20 +80,33 @@ int main(int argc, char const *argv[])
     string line;
     ifstream MyReadFile("data");
 
-    bool skip = false;
-
     cout << endl;
     while (getline (MyReadFile, line)) 
     {
 
-        if(line[0] == 36) command(line, &current_parameters);  // $ command
+        if(line[0] == 36)
+        {
+            command(line, &current_parameters);  // $ command
+            cout
+            << " 0 "
+            << " (" << current_parameters.position_x
+            << ","  << current_parameters.position_y
+            << ","  << current_parameters.folder_size
+            << ","  << current_parameters.folder_name
+            << ") " << line << endl;
+        }
+        else
+        {
+            command(line, &current_parameters);  // $ command
+            cout
+            << " 1 "
+            << " (" << current_parameters.position_x
+            << ","  << current_parameters.position_y
+            << ","  << current_parameters.folder_size
+            << ","  << current_parameters.folder_name
+            << ") " << line << endl;
+        }
 
-        cout
-        << " (" << current_parameters.position_x
-        << ","  << current_parameters.position_y
-        << ","  << current_parameters.folder_size
-        << ","  << current_parameters.folder_name
-        << ") " << line << endl;
 
     }
     return 0;
