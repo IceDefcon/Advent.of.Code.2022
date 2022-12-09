@@ -1,21 +1,21 @@
 $ cd /
 $ ls
-dir a
+dir ab
 14848514 b.txt
 8504156 c.dat
-dir d
-$ cd a
+dir def
+$ cd ab
 $ ls
-dir e
+dir eghi
 29116 f
 2557 g
 62596 h.lst
-$ cd e
+$ cd eghi
 $ ls
 584 i
 $ cd ..
 $ cd ..
-$ cd d
+$ cd def
 $ ls
 4060174 j
 8033020 d.log
