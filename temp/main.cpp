@@ -16,8 +16,6 @@ int main(int argc, char const *argv[])
     string text;
     ifstream MyReadFile("data");
 
-    bool skip = false;
-
     cout << endl;
     while (getline (MyReadFile, text)) 
     {
