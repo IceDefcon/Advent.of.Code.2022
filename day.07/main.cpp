@@ -5,106 +5,112 @@
 
 
 
+
+
 struct parameters
 {
 	int x;
-	int y;
-	int z;
+	int size;
+	int amount;
+	bool flag;
+	string name;
 };
 
-struct folder
-{
-	int size;
-	bool flag;
-};
 
 
 int main(int argc, char const *argv[])
 {
 
-    cout << endl << " ---====[ BEGIN ]===----" << endl << endl; 
-
-    struct parameters current_parameters;
-    current_parameters.x = 0;
-    current_parameters.y = 0;
-    current_parameters.z = 0;
-
-    struct folder current_folder;
-    current_folder.size = 0;
-    current_folder.flag = false;
+	struct parameters current_parameters;
+	current_parameters.x = 0;
+	current_parameters.size = 0;
+	current_parameters.amount = 0;
+	current_parameters.flag = false;
+	current_parameters.name = "";
 
     //
     // Line count
     //
-    static string temp = "";
+    static string count_buffer = "";
 	static int line_count = 0;
-	ifstream linec_count("data");
-    while (getline (linec_count, temp)) 
+	ifstream file_1("data");
+    while (getline (file_1, count_buffer)) 
     {
     	line_count++;
     }
 
-    //
-    // Init structres
-    //
-    struct parameters parameters[line_count];
-    struct folder folder[line_count];
-
+    struct parameters folder_parameters[line_count];
     for (int i = 0; i < line_count; ++i)
     {
-    	parameters[i].x = 0;
-    	parameters[i].y = 0;
-    	parameters[i].z = 0;
-    	folder[i].size = 0;
-    	folder[i].flag = false;
+		folder_parameters[i].x = 0;
+		folder_parameters[i].size = 0;
+		folder_parameters[i].amount = 0;
+		folder_parameters[i].flag = 0;
+		folder_parameters[i].name = "";
     }
 
-    line_count = 0;
+    static string folder_name = "";
+	static int previous_size = 0;
+	static int current_size = 0;
+	static int count = 0;
+	static string str = "";
 	static int folder_size = 0;
-
-    static string str ="";
-    static string line = "";
-	ifstream MyReadFile("data");
-
-	int previous_size = 0;
-	int current_size = 0;
-
-	cout << "(x,y,z,size)" << " line "<< endl;
-    while (getline (MyReadFile, line)) 
+	static int amount = 0;
+    static string buffer = "";
+	ifstream file_2("data");
+    while (getline (file_2, buffer)) 
     {
 	    string cmd = "";
-	    cmd += line[2];
-	    cmd += line[3];
+	    cmd += buffer[0];
+	    cmd += buffer[1];
+	    cmd += buffer[2];
+	    cmd += buffer[3];
 
-    	if(cmd == "cd" && line[5] == 47) // main ---> cd /
-    	{
-    		cout << " main ";
-    		current_parameters.x = 0;
-			current_parameters.y = 0;
-    	}
-    	else if(cmd == "cd"  && line[5] > 96 && line[5] < 123) // up ---> cd any
-    	{
-    		cout << "  up  ";
-    		current_parameters.x++;
-    		current_parameters.z++;
-    		current_folder.size = 0; // clear folder size ---> goint up
-    	}
-    	else if(cmd == "cd"  && line[5] == 46) // down ---> cd ..
-    	{
-    		cout << " down ";
-    		current_parameters.x--;
-    		current_folder.size = 0; // clear folder size ---> goint down
-    	}
-		else if((int)line[0] > 47 && (int)line[0] < 58) // file size on front
+	    if(cmd == "$ cd"  && buffer[5] == 47) // MAIN
+	    {
+	    	current_parameters.x = 0;
+	    	current_parameters.name = "/";
+	    }
+	    else if(cmd == "$ cd"  && buffer[5] > 96 && buffer[5] < 123) // UP
+	    {
+	    	current_parameters.x++;
+	    	current_parameters.size = 0;
+	    	current_parameters.amount = 0;
+    		
+    		folder_name = "";
+            for(int i = 5;;i++) // $ cd xxxx
+            {
+                if(buffer[i] > 96 && buffer[i] < 123)
+                {
+                    folder_name = folder_name + buffer[i];
+                }
+                else break;
+            }
+
+            current_parameters.name = folder_name;
+	    }
+	    else if(cmd == "$ cd"  && buffer[5] == 46) // DOWN
+	    {
+	    	current_parameters.x--;
+	    	current_parameters.size = 0;
+	    	current_parameters.amount = 0;
+	    }
+	    else if(cmd == "$ ls")
+	    {
+
+	    }
+		else if((int)buffer[0] > 47 && (int)buffer[0] < 58) // folder size
 		{
 			str = "";
 			folder_size = 0;
-
 	        for(int i = 0;;i++)
 	        {
-	            if((int)line[i] > 47 && (int)line[i] < 58) // file size
+	        	//
+				// file
+				//
+	            if((int)buffer[i] > 47 && (int)buffer[i] < 58)
 	            {
-	                str = str + line[i];
+	                str = str + buffer[i];
 	            }
 	            else break;
 	        }
@@ -113,122 +119,62 @@ int main(int argc, char const *argv[])
 	        ss << str;  
 	        ss >> folder_size; 
 
-    		cout << " file ";
-    		current_parameters.y++;
-    		current_folder.size = current_folder.size + folder_size;
-		}
-		else if(line[0] == 100)
-		{
-			cout << " none ";
-		}
-		else
-		{
-			cout << " none ";
-			current_parameters.y = 0;
-		}
+    		current_parameters.size = current_parameters.size + folder_size;
 
-		cout
-		<< "("  << current_parameters.x 
-		<< ","  << current_parameters.y 
-		<< ","  << current_parameters.z 
-		<< ","  << current_folder.size
-		<< ") " << line << endl;
+		}
+	    else if(cmd == "dir ")
+	    {
+	    	current_parameters.amount++;
+	    }
 
-    	parameters[line_count].x = current_parameters.x ;
-    	parameters[line_count].y = current_parameters.y ;
-    	parameters[line_count].z = current_parameters.z ;
-    	folder[line_count].size = current_folder.size;
-    	folder[line_count].flag = current_folder.flag;
+	    cout
+	    << " (" << current_parameters.flag
+	    << ")(" << current_parameters.x
+	    << ", " << current_parameters.amount
+	    << ", " << current_parameters.size
+	    << ", " << current_parameters.name
+	    << ") " << buffer << endl;
+
+		folder_parameters[count] = current_parameters;
 
     	//
-    	// Flag check
+    	// Flag check + amount of other folders
     	//
-    	previous_size = folder[line_count - 1].size;
-    	current_size = folder[line_count].size;
+    	previous_size = folder_parameters[count - 1].size;
+    	current_size = folder_parameters[count].size;
 
-    	if(current_size > previous_size || (current_size == previous_size && current_size > 0 && previous_size > 0))
+    	if(buffer[5] != 47 && (current_size > previous_size || (current_size == previous_size && current_size > 0 && previous_size > 0)))
     	{
-    		folder[line_count - 1].flag = false;
-    		folder[line_count].flag = true;
+    		folder_parameters[count - 1].flag = false;
+    		folder_parameters[count].flag = true;
+    		folder_parameters[count].amount = current_parameters.amount;
     	} 
-    	else folder[line_count].flag = false;
+    	else folder_parameters[count].flag = false;
 
-    	line_count++;
+	    count++;
+
     }
 
-    cout << endl << " ---====[ FINAL ]===----" << endl << endl; 
+    cout << endl << " ---====[ FINAL ]====--- " << endl << endl;
 
-    cout << "(x,y,z,size)" << endl;
-    for (int i = 0; i < line_count; ++i)
+    static int total = 0;
+    for (int i = 0; i < count; ++i)
     {
-		cout
-		<< "("   << folder[i].flag
-		<< ")("  << parameters[i].x
-		<< ","   << parameters[i].y
-		<< ","   << parameters[i].z
-		<< ","   << folder[i].size
-		<< ") "  << endl;
-	}
+    	if(folder_parameters[i].flag == true && folder_parameters[i].size <= 100000)
+    	{
+		    cout
+		    << " ("  << folder_parameters[i].amount
+		    << ") (" << folder_parameters[i].x
+		    << ") (" << folder_parameters[i].size
+		    << ","   << folder_parameters[i].name
+		    << ") "  << endl;
 
-	cout << endl << " ---====[ DESIRED ]===----" << endl << endl; 
+		    total = total + folder_parameters[i].size;
+    	}
 
-	int flag_count = 0;
+    }
 
-	for (int i = 0; i < line_count; ++i)
-	{
-		if(folder[i].flag == true && folder[i].size <= 100000)
-		{
-			cout
-			<< "("   << folder[i].flag
-			<< ")("  << parameters[i].x
-			<< ","   << parameters[i].y
-			<< ","   << parameters[i].z
-			<< ","   << folder[i].size
-			<< ") "  << endl;
-
-			flag_count++;
-		}
-	}
-
-	struct parameters flaged_parameters[flag_count];
-	struct folder flaged_folder[line_count];
-	int temp_flag = 0;
-	for (int i = 0; i < flag_count; ++i)
-	{
-    	parameters[i].x = 0;
-    	parameters[i].y = 0;
-    	parameters[i].z = 0;
-    	folder[i].size = 0;
-    	folder[i].flag = false;
-	}
-
-	for (int i = 0; i < line_count; ++i)
-	{
-		if(folder[i].flag == true && folder[i].size <= 100000)
-		{
-			flaged_parameters[temp_flag] = parameters[i];
-			flaged_folder[temp_flag] = folder[i];
-			temp_flag++;
-		}
-	}
-
-	cout << endl << " ---====[ FLAGED ]===----" << endl << endl; 
-
-	for (int i = 0; i < flag_count; ++i)
-	{
-		cout
-		<< "("   << flaged_folder[i].flag
-		<< ")("  << flaged_parameters[i].x
-		<< ","   << flaged_parameters[i].y
-		<< ","   << flaged_parameters[i].z
-		<< ","   << flaged_folder[i].size
-		<< ") "  << endl;
-	}
-
-	cout << endl << " ---====[ TOTAL SIZE ]===----" << endl << endl; 
-
-	cout << "Desired length ---> " << current_size << endl << endl;
-
+    cout << endl << " ---====[ " << total << " ]====--- " << endl << endl;
 
 	return 0;
 }
