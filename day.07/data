@@ -13,13 +13,6 @@ dir e
 $ cd e
 $ ls
 584 i
-dir test
-$ cd test
-$ ls
-32523 aa
-42352 bb
-63462 cc
-$ cd ..
 $ cd ..
 $ cd ..
 $ cd d
