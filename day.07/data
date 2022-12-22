@@ -13,6 +13,11 @@ dir e
 $ cd e
 $ ls
 584 i
+dir z
+$ cd z
+$ ls
+23482 fd
+$ cd ..
 $ cd ..
 $ cd ..
 $ cd d
