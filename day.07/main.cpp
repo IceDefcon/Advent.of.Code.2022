@@ -10,7 +10,6 @@ struct parameters
 {
 	int n;
 	int x;
-	int y;
 	int dir;
 	int file;
 	int size;
@@ -47,7 +46,6 @@ int main(int argc, char const *argv[])
     {
     	dir_parameters[i].n = 0;
 		dir_parameters[i].x = 0;
-		dir_parameters[i].y = 0;
 		dir_parameters[i].dir = 0;
 		dir_parameters[i].file = 0;
 		dir_parameters[i].size = 0;
@@ -59,7 +57,6 @@ int main(int argc, char const *argv[])
     {
     	line_parameters[i].n = 0;
 		line_parameters[i].x = 0;
-		line_parameters[i].y = 0;
 		line_parameters[i].dir = 0;
 		line_parameters[i].file = 0;
 		line_parameters[i].size = 0;
@@ -69,7 +66,6 @@ int main(int argc, char const *argv[])
 	struct parameters current_parameters;
 	current_parameters.n = 0;
 	current_parameters.x = 0;
-	current_parameters.y = 0;
 	current_parameters.dir = 0;
 	current_parameters.file = 0;
 	current_parameters.size = 0;
@@ -78,7 +74,6 @@ int main(int argc, char const *argv[])
 	struct parameters previous_parameters;
 	previous_parameters.n = 0;
 	previous_parameters.x = 0;
-	previous_parameters.y = 0;
 	previous_parameters.dir = 0;
 	previous_parameters.file = 0;
 	previous_parameters.size = 0;
@@ -111,7 +106,6 @@ int main(int argc, char const *argv[])
 	    	//
 	    	cout << "  UP  ";
 	    	current_parameters.x++;
-	    	current_parameters.y++;
 	    	current_parameters.dir = 0;
 	    	current_parameters.file = 0;
 	    	current_parameters.size = 0;
@@ -123,7 +117,9 @@ int main(int argc, char const *argv[])
 	    	//
 	    	cout << " DOWN ";
 	    	current_parameters.x--;
-	    	
+	    	current_parameters.dir = 0;
+	    	current_parameters.file = 0;
+	    	current_parameters.size = 0;	    	
 	    }
 	    else if(cmd == "$ ls")
 	    {
@@ -165,7 +161,7 @@ int main(int argc, char const *argv[])
     	(
     		buffer[5] != 47 && 
 			(
-				line_parameters[current_parameters.n].size > line_parameters[current_parameters.n - 1].size || 
+				line_parameters[current_parameters.n].size >= line_parameters[current_parameters.n - 1].size || 
 				(
 					line_parameters[current_parameters.n].size == line_parameters[current_parameters.n - 1].size && 
 					line_parameters[current_parameters.n].size > 0 && 
@@ -181,13 +177,14 @@ int main(int argc, char const *argv[])
     	else if(line_parameters[current_parameters.n].size == 0 && line_parameters[current_parameters.n].dir > 0) line_parameters[current_parameters.n].flag = true;
     	else line_parameters[current_parameters.n].flag = false;
 
+    	current_parameters.flag = line_parameters[current_parameters.n].flag;
     	cout
-    	<< " X:" << current_parameters.x
-    	<< " Y:" << current_parameters.y
-    	<< " D:" << current_parameters.dir
-    	<< " F:" << current_parameters.file
-    	<< " S:" << current_parameters.size
-    	<< " Line ---> " << buffer << endl;
+    	<< "  F:" << current_parameters.flag
+    	<< "  X:" << current_parameters.x
+    	<< "  D:" << current_parameters.dir
+    	<< "  F:" << current_parameters.file
+    	<< "  S:" << current_parameters.size
+    	<< "            " << buffer << endl;
 
     	current_parameters.n++;
     }
@@ -203,19 +200,10 @@ int main(int argc, char const *argv[])
     	// << " F:" << line_parameters[i].flag
     	// << " N:" << line_parameters[i].n
     	// << " X:" << line_parameters[i].x
-    	// << " Y:" << line_parameters[i].y
     	// << " D:" << line_parameters[i].dir
     	// << " F:" << line_parameters[i].file
     	// << " S:" << line_parameters[i].size
     	// << endl;
-
-    	if(dir_flag == true)
-    	{
-    		line_parameters[i].y = 0;
-    		dir_flag = false;
-    	}
-
-    	if(line_parameters[i].flag == true && line_parameters[i].dir > 0) dir_flag = true;
 
     }
 
@@ -226,21 +214,27 @@ int main(int argc, char const *argv[])
     	cout
     	<< "  F:" << line_parameters[i].flag
     	<< "  X:" << line_parameters[i].x
-    	<< "  Y:" << line_parameters[i].y
     	<< "  D:" << line_parameters[i].dir
     	<< "  F:" << line_parameters[i].file
     	<< "  S:" << line_parameters[i].size
     	<< endl;
     }
 
+	// cout << endl << " ---====[ FINAL ]====--- " << endl << endl;
 
-
-
-
-
-
-
-
+    // for (int i = 0; i < line_count; ++i)
+    // {
+    // 	if(line_parameters[i].flag == 1 && line_parameters[i].size < 100000)
+    // 	{
+    // 		cout
+	//     	<< "  F:" << line_parameters[i].flag
+	//     	<< "  X:" << line_parameters[i].x
+	//     	<< "  D:" << line_parameters[i].dir
+	//     	<< "  F:" << line_parameters[i].file
+	//     	<< "  S:" << line_parameters[i].size
+	//     	<< endl;
+    // 	}
+    // }
 
 	return 0;
 }
